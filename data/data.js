@@ -24,11 +24,14 @@ papers:[
 ["BISE Hyderabad Islamiat Past Papers (SSC Part II)",10,"Islamiat","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"],
 ["BISE Hyderabad Pakistan Studies Past Papers (SSC Part II)",10,"Pakistan Studies","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"]],
 library:[
-["Sample: Class 6 Science Notes",6,"Science","Notes",""],
-["Sample: Class 8 Mathematics Textbook",8,"Mathematics","Textbook",""],
+library:[
+["STBB Textbooks, Classes 1 to 12 (Sindh Textbook Board)",0,"Textbooks","Textbook","https://www.taleem360.com/books/explore?author=STBB"],
+["STBB Class 9 Textbooks (all subjects)",9,"Textbooks","Textbook","https://www.taleem360.com/categories/9th-text-books-sindh"],
+["Shah Jo Risalo (Shah Abdul Latif Bhittai), read on Bhittaipedia",0,"Sindhi Literature","Book","https://bhittaipedia.org/"],
+["Sindhi Language Authority: virtual library of Sindhi books (search for Shaikh Ayaz and others)",0,"Sindhi Literature","Book","https://sindhila.edu.pk/"],
+["Shaikh Ayaz: life and works (information page)",0,"Sindhi Literature","Book","https://en.wikipedia.org/wiki/Shaikh_Ayaz"],
 ["Sample: Science Diagrams Pack",9,"Biology","Diagrams",""],
-["Sample: English Grammar Guide",7,"English","Grammar",""],
-["Sample: Class 10 Physics Notes",10,"Physics","Notes",""]],
+["Sample: English Grammar Guide",7,"English","Grammar",""]],
 achievements:[
 ["Student name (sample)",10,"Sample: Board position holder",""],
 ["Student name (sample)",9,"Sample: Science exhibition winner",""],
