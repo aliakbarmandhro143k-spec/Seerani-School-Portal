@@ -31,8 +31,8 @@ news:[
 ["Date to be added","Sample: School holiday","Write the real holiday notice here.","Holiday"]],
 gallery:[
 ["IMG-20261106-WA0178.jpg","Morning assembly"],
-["IMG-20261106-WA0195.jpg","Gathering at the school entrance"],
-["IMG-20261112-WA0121.jpg","Celebrating culture day"],
+["IMG-20261106-WA0195.jpg","Celebrating culture day"],
+["IMG-20261112-WA0121.jpg","Gathering at the school entrance"],
 ["IMG-20261115-WA0006.jpg","Prize presentation"],
 ["IMG-20261115-WA0007.jpg","Prize presentation"],
 ["download (4).jpeg","Independence Day celebration in the school hall"],
