@@ -3,7 +3,6 @@
    Items starting with "Sample:" are examples, delete or replace them. */
 const D={
 papers:[
-papers:[
 ["BISE Hyderabad Physics Past Papers (SSC Part I)",9,"Physics","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
 ["BISE Hyderabad Chemistry Past Papers (SSC Part I)",9,"Chemistry","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
 ["BISE Hyderabad Biology Past Papers (SSC Part I)",9,"Biology","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
@@ -24,7 +23,7 @@ papers:[
 ["BISE Hyderabad Sindhi Past Papers (SSC Part II)",10,"Sindhi","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"],
 ["BISE Hyderabad Islamiat Past Papers (SSC Part II)",10,"Islamiat","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"],
 ["BISE Hyderabad Pakistan Studies Past Papers (SSC Part II)",10,"Pakistan Studies","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"]],
-library:
+library:[
 ["Sample: Class 6 Science Notes",6,"Science","Notes",""],
 ["Sample: Class 8 Mathematics Textbook",8,"Mathematics","Textbook",""],
 ["Sample: Science Diagrams Pack",9,"Biology","Diagrams",""],
@@ -45,9 +44,9 @@ news:[
 ["Date to be added","Sample: School holiday","Write the real holiday notice here.","Holiday"]],
 gallery:[
 ["IMG-20261106-WA0178.jpg","Morning assembly"],
-["IMG-20261106-WA0195.jpg","Celebrating culture day"],
-["IMG-20261112-WA0121.jpg","Gathering at the school entrance"],
-["IMG-20261115-WA0006.jpg","Prize presentation"],
+["IMG-20261106-WA0195.jpg","Gathering at the school entrance"],
+["IMG-20261112-WA0121.jpg","School activity"],
+["IMG-20261115-WA0006.jpg","School activity"],
 ["IMG-20261115-WA0007.jpg","Prize presentation"],
 ["download (4).jpeg","Independence Day celebration in the school hall"],
 ["download (5).jpeg","A teacher guiding students in class"],
