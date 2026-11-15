@@ -30,6 +30,11 @@ news:[
 ["Date to be added","Sample: Admission notice","Write the real admission notice here.","Admissions"],
 ["Date to be added","Sample: School holiday","Write the real holiday notice here.","Holiday"]],
 gallery:[
+["IMG-20261106-WA0178.jpg","Morning assembly"],
+["IMG-20261106-WA0195.jpg","Gathering at the school entrance"],
+["IMG-20261112-WA0121.jpg","Celebrating culture day"],
+["IMG-20261115-WA0006.jpg","Prize presentation"],
+["IMG-20261115-WA0007.jpg","Prize presentation"],
 ["download (4).jpeg","Independence Day celebration in the school hall"],
 ["download (5).jpeg","A teacher guiding students in class"],
 ["download (6).jpeg","Teachers’ Day, 5 October"],
@@ -38,9 +43,7 @@ gallery:[
 ["download (9).jpeg","Our school team in front of the school"],
 ["download (10).jpeg","Students and a teacher at school"],
 ["download (11).jpeg","At school"],
-["download (12).jpeg","At school"],
-["../../lv_0_20261113204029.jpg","Prize presentation at school"],
-["../../lv_0_20261113204525.jpg","Prize presentation at school"]],
+["download (12).jpeg","At school"]],
 steam:[
 ["Sample: Working model","Student names (sample)","Materials list (sample)","Describe what the project does and how it works.",""]],
 careers:[
