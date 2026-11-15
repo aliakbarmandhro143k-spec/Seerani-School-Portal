@@ -3,14 +3,28 @@
    Items starting with "Sample:" are examples, delete or replace them. */
 const D={
 papers:[
-["Sample: Mathematics Past Paper",9,"Mathematics","Past Paper",""],
-["Sample: Physics Model Paper",10,"Physics","Model Paper",""],
-["Sample: Chemistry Important Questions",10,"Chemistry","Important Questions",""],
-["Sample: Biology MCQs Practice",9,"Biology","MCQs",""],
-["Sample: English Past Paper",8,"English","Past Paper",""],
-["Sample: Computer Science Model Paper",7,"Computer Science","Model Paper",""],
-["Sample: General Science Past Paper",6,"Science","Past Paper",""]],
-library:[
+papers:[
+["BISE Hyderabad Physics Past Papers (SSC Part I)",9,"Physics","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
+["BISE Hyderabad Chemistry Past Papers (SSC Part I)",9,"Chemistry","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
+["BISE Hyderabad Biology Past Papers (SSC Part I)",9,"Biology","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
+["BISE Hyderabad Mathematics Past Papers (SSC Part I)",9,"Mathematics","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
+["BISE Hyderabad English Past Papers (SSC Part I)",9,"English","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
+["BISE Hyderabad Computer Science Past Papers (SSC Part I)",9,"Computer Science","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
+["BISE Hyderabad Urdu Past Papers (SSC Part I)",9,"Urdu","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
+["BISE Hyderabad Sindhi Past Papers (SSC Part I)",9,"Sindhi","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
+["BISE Hyderabad Islamiat Past Papers (SSC Part I)",9,"Islamiat","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
+["BISE Hyderabad Pakistan Studies Past Papers (SSC Part I)",9,"Pakistan Studies","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad9th-past-papers.aspx"],
+["BISE Hyderabad Physics Past Papers (SSC Part II)",10,"Physics","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"],
+["BISE Hyderabad Chemistry Past Papers (SSC Part II)",10,"Chemistry","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"],
+["BISE Hyderabad Biology Past Papers (SSC Part II)",10,"Biology","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"],
+["BISE Hyderabad Mathematics Past Papers (SSC Part II)",10,"Mathematics","Past Paper","https://www.eduvision.edu.pk/exam/bise-hyderabad-math-10th-exams-16"],
+["BISE Hyderabad English Past Papers (SSC Part II)",10,"English","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"],
+["BISE Hyderabad Computer Science Past Papers (SSC Part II)",10,"Computer Science","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"],
+["BISE Hyderabad Urdu (Salees) Past Papers (SSC Part II)",10,"Urdu","Past Paper","https://www.eduvision.edu.pk/exam/bise-hyderabad-salees-urdu-10th-exams-19"],
+["BISE Hyderabad Sindhi Past Papers (SSC Part II)",10,"Sindhi","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"],
+["BISE Hyderabad Islamiat Past Papers (SSC Part II)",10,"Islamiat","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"],
+["BISE Hyderabad Pakistan Studies Past Papers (SSC Part II)",10,"Pakistan Studies","Past Paper","https://www.ilmkidunya.com/past_papers/hyderabad10th-past-papers.aspx"]],
+library:
 ["Sample: Class 6 Science Notes",6,"Science","Notes",""],
 ["Sample: Class 8 Mathematics Textbook",8,"Mathematics","Textbook",""],
 ["Sample: Science Diagrams Pack",9,"Biology","Diagrams",""],
