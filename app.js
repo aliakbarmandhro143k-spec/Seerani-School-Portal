@@ -11,7 +11,14 @@ function go(){let id=location.hash.slice(1)||'home';if(!$('#'+id))id='home';$$('
 addEventListener('hashchange',go);
 $$('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;document.documentElement.lang=lang;document.documentElement.dir=lang=='en'?'ltr':'rtl';$$('.lang button').forEach(x=>x.classList.toggle('on',x==b));nav()});
 const file=f=>f?`<a class="btn" href="${E(f)}" target="_blank" rel="noopener">Preview</a> <a class="btn alt" href="${E(f)}" download>Download</a>`:'<span class="note">PDF not added yet</span>';
-const rowCard=r=>`<div class="card"><h3>${E(r[0])}</h3>${samp(r[0])}<span class="tag s">Class ${r[1]}</span><span class="tag s">${E(r[2])}</span><span class="tag">${E(r[3])}</span><p>${file(r[4])}</p></div>`;
+library:[
+["STBB Textbooks, Classes 1 to 12 (Sindh Textbook Board)",0,"Textbooks","Textbook","https://www.taleem360.com/books/explore?author=STBB"],
+["STBB Class 9 Textbooks (all subjects)",9,"Textbooks","Textbook","https://www.taleem360.com/categories/9th-text-books-sindh"],
+["Shah Jo Risalo (Shah Abdul Latif Bhittai), read on Bhittaipedia",0,"Sindhi Literature","Book","https://bhittaipedia.org/"],
+["Sindhi Language Authority: virtual library of Sindhi books (search for Shaikh Ayaz and others)",0,"Sindhi Literature","Book","https://sindhila.edu.pk/"],
+["Shaikh Ayaz: life and works (information page)",0,"Sindhi Literature","Book","https://en.wikipedia.org/wiki/Shaikh_Ayaz"],
+["Sample: Science Diagrams Pack",9,"Biology","Diagrams",""],
+["Sample: English Grammar Guide",7,"English","Grammar",""]],  class="tag s">${E(r[2])}</span><span class="tag">${E(r[3])}</span><p>${file(r[4])}</p></div>`;
 function filtered(key){const box=$(`.filters[data-box=${key}]`);const c=box.querySelector('.c').value,s=box.querySelector('.s').value;
  $('#'+key+'-list').innerHTML=D[key].filter(r=>(c=='0'||r[1]==c)&&(s==''||r[2]==s)).map(rowCard).join('')||'<p class="note">Nothing found. Try another class or subject.</p>'}
 ['papers','library'].forEach(k=>{const subs=[...new Set(D[k].map(r=>r[2]))].sort();
@@ -62,3 +69,6 @@ $('#q').oninput=e=>{const q=e.target.value.trim().toLowerCase();if(!q){go();retu
  const r=idx.filter(x=>(x[0]+x[1]).toLowerCase().includes(q));$$('main>section').forEach(s=>s.hidden=s.id!='search');
  $('#sr').innerHTML=r.map(x=>`<a class="card" href="#${x[2]}" onclick="$('#q').value=''"><h3>${E(x[0])}</h3><span class="note">${E(x[1])}</span></a>`).join('')||'<p class="note">No results. Try a different word.</p>'};
 nav();go();
+function filtered(key){const box=$(`.filters[data-box=${key}]`);const c=box.querySelector('.c').value,s=box.querySelector('.s').value;
+ const card=r=>`<div class="card"><h3>${E(r[0])}</h3>${samp(r[0])}<span class="tag s">${r[1]?'Class '+r[1]:'All classes'}</span><span class="tag s">${E(r[2])}</span><span class="tag">${E(r[3])}</span><p>${file(r[4])}</p></div>`;
+ $('#'+key+'-list').innerHTML=D[key].filter(r=>(c=='0'||r[1]==c||r[1]==0)&&(s==''||r[2]==s)).map(card).join('')||'<p class="note">Nothing found. Try another class or subject.</p>'}
