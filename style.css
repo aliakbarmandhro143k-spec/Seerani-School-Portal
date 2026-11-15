@@ -28,7 +28,7 @@ a.card:hover{border-left-color:var(--gold);transform:translateY(-2px);transition
 .warn{background:#fff3f3;border:2px solid var(--red);border-radius:12px;padding:.8rem 1rem}
 label{display:block;margin:.5rem 0;font-weight:700}select,textarea{display:block;width:100%;max-width:420px;padding:.5rem;border:1px solid #bcc5db;border-radius:8px;font:inherit}
 .filters{display:flex;gap:.6rem;flex-wrap:wrap;margin:.6rem 0}.filters select{width:auto}
-.g .ph{aspect-ratio:4/3;width:100%;object-fit:cover;border-radius:10px;background:#dde3f3}
+.g .ph{aspect-ratio:4/3;width:100%;object-fit:cover;object-position:center top;border-radius:10px;background:#dde3f3}
 .ph{background:linear-gradient(135deg,#dde3f3,#f1f3fa);display:grid;place-items:center;font-size:2.4rem;aspect-ratio:4/3;border-radius:10px}
 .tw{overflow-x:auto}table{border-collapse:collapse;width:100%;background:#fff}td,th{border:1px solid var(--line);padding:.5rem;text-align:start}th{background:var(--ink);color:#fff}
 .opt{display:block;width:100%;text-align:start;margin:.35rem 0;padding:.6rem;border:2px solid var(--line);border-radius:10px;background:#fff;font:inherit;cursor:pointer}
