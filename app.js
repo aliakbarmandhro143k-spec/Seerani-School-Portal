@@ -3,6 +3,7 @@ const WA='923332597174';
 const NAV=[["home","Home","گھر","ہوم","🏠"],["papers","Past Papers","پراڻا پيپر","پرانے پرچے","📝"],["achievements","Achievements","ڪاميابيون","کامیابیاں","🏆"],["library","Library","لائبريري","لائبریری","📚"],["quiz","Quizzes","ڪوئز","کوئز","❓"],["teachers","Teachers","استاد","اساتذہ","👨‍🏫"],["news","News","خبرون","خبریں","📢"],["gallery","Gallery","گيلري","گیلری","📷"],["steam","STEAM","اسٽيم","اسٹیم","🔬"],["careers","Careers","ڪيريئر","کیریئر","🎓"],["calendar","Calendar","ڪئلينڊر","کیلنڈر","📅"],["english","English","انگريزي","انگریزی","🔤"],["safe","Stay Safe","محفوظ","محفوظ","🛡️"],["report","Report","رپورٽ","رپورٹ","⚠️"],["contact","Contact","رابطو","رابطہ","📞"]];
 const E=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const samp=t=>t.startsWith('Sample')?'<span class="tag">Sample</span>':'';
+const cls=n=>n?'Class '+n:'All classes';
 let lang='en';
 function nav(){const i={en:1,sd:2,ur:3}[lang];$('#nav').innerHTML=NAV.map(n=>`<a href="#${n[0]}">${n[4]} ${n[i]}</a>`).join('');
  $('#tiles').innerHTML=NAV.slice(1).map(n=>`<a class="card" href="#${n[0]}"><div class="em">${n[4]}</div><h3>${n[i]}</h3></a>`).join('');mark()}
@@ -11,16 +12,9 @@ function go(){let id=location.hash.slice(1)||'home';if(!$('#'+id))id='home';$$('
 addEventListener('hashchange',go);
 $$('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;document.documentElement.lang=lang;document.documentElement.dir=lang=='en'?'ltr':'rtl';$$('.lang button').forEach(x=>x.classList.toggle('on',x==b));nav()});
 const file=f=>f?`<a class="btn" href="${E(f)}" target="_blank" rel="noopener">Preview</a> <a class="btn alt" href="${E(f)}" download>Download</a>`:'<span class="note">PDF not added yet</span>';
-library:[
-["STBB Textbooks, Classes 1 to 12 (Sindh Textbook Board)",0,"Textbooks","Textbook","https://www.taleem360.com/books/explore?author=STBB"],
-["STBB Class 9 Textbooks (all subjects)",9,"Textbooks","Textbook","https://www.taleem360.com/categories/9th-text-books-sindh"],
-["Shah Jo Risalo (Shah Abdul Latif Bhittai), read on Bhittaipedia",0,"Sindhi Literature","Book","https://bhittaipedia.org/"],
-["Sindhi Language Authority: virtual library of Sindhi books (search for Shaikh Ayaz and others)",0,"Sindhi Literature","Book","https://sindhila.edu.pk/"],
-["Shaikh Ayaz: life and works (information page)",0,"Sindhi Literature","Book","https://en.wikipedia.org/wiki/Shaikh_Ayaz"],
-["Sample: Science Diagrams Pack",9,"Biology","Diagrams",""],
-["Sample: English Grammar Guide",7,"English","Grammar",""]],  class="tag s">${E(r[2])}</span><span class="tag">${E(r[3])}</span><p>${file(r[4])}</p></div>`;
+const rowCard=r=>`<div class="card"><h3>${E(r[0])}</h3>${samp(r[0])}<span class="tag s">${cls(r[1])}</span><span class="tag s">${E(r[2])}</span><span class="tag">${E(r[3])}</span><p>${file(r[4])}</p></div>`;
 function filtered(key){const box=$(`.filters[data-box=${key}]`);const c=box.querySelector('.c').value,s=box.querySelector('.s').value;
- $('#'+key+'-list').innerHTML=D[key].filter(r=>(c=='0'||r[1]==c)&&(s==''||r[2]==s)).map(rowCard).join('')||'<p class="note">Nothing found. Try another class or subject.</p>'}
+ $('#'+key+'-list').innerHTML=D[key].filter(r=>(c=='0'||r[1]==c||r[1]==0)&&(s==''||r[2]==s)).map(rowCard).join('')||'<p class="note">Nothing found. Try another class or subject.</p>'}
 ['papers','library'].forEach(k=>{const subs=[...new Set(D[k].map(r=>r[2]))].sort();
  $(`.filters[data-box=${k}]`).innerHTML=`<select class="c" aria-label="Class"><option value="0">All classes</option>${[6,7,8,9,10].map(c=>`<option>${c}</option>`).join('')}</select><select class="s" aria-label="Subject"><option value="">All subjects</option>${subs.map(s=>`<option>${E(s)}</option>`).join('')}</select>`;
  $$(`.filters[data-box=${k}] select`).forEach(s=>s.onchange=()=>filtered(k));filtered(k)});
@@ -64,11 +58,8 @@ $('#rf [data-a=cp]').onclick=async e=>{e.preventDefault();if(!$('#rf').d.value.t
  try{await navigator.clipboard.writeText(rep());$('#rm').textContent='Copied. Paste it in WhatsApp.'}catch{$('#rm').textContent='Could not copy. Select and copy the text yourself.'}};
 $('#ff').onsubmit=e=>{e.preventDefault();const f=e.target;wa(`${f.t.value} for the school portal:\n${f.d.value}`)};
 /* Search */
-const idx=[...D.papers.map(r=>[r[0],`Past Papers · Class ${r[1]} · ${r[2]}`,'papers']),...D.library.map(r=>[r[0],`Library · Class ${r[1]} · ${r[2]}`,'library']),...D.news.map(n=>[n[1],'News','news']),...D.teachers.map(t=>[t[0]+' ('+t[2]+')','Teachers','teachers']),...D.steam.map(p=>[p[0],'STEAM','steam']),...D.vocab.map(v=>[v[0]+': '+v[1],'English','english']),...D.careers.map(c=>[c[0],'Careers','careers'])];
+const idx=[...D.papers.map(r=>[r[0],`Past Papers · ${cls(r[1])} · ${r[2]}`,'papers']),...D.library.map(r=>[r[0],`Library · ${cls(r[1])} · ${r[2]}`,'library']),...D.news.map(n=>[n[1],'News','news']),...D.teachers.map(t=>[t[0]+' ('+t[2]+')','Teachers','teachers']),...D.steam.map(p=>[p[0],'STEAM','steam']),...D.vocab.map(v=>[v[0]+': '+v[1],'English','english']),...D.careers.map(c=>[c[0],'Careers','careers'])];
 $('#q').oninput=e=>{const q=e.target.value.trim().toLowerCase();if(!q){go();return}
  const r=idx.filter(x=>(x[0]+x[1]).toLowerCase().includes(q));$$('main>section').forEach(s=>s.hidden=s.id!='search');
  $('#sr').innerHTML=r.map(x=>`<a class="card" href="#${x[2]}" onclick="$('#q').value=''"><h3>${E(x[0])}</h3><span class="note">${E(x[1])}</span></a>`).join('')||'<p class="note">No results. Try a different word.</p>'};
 nav();go();
-function filtered(key){const box=$(`.filters[data-box=${key}]`);const c=box.querySelector('.c').value,s=box.querySelector('.s').value;
- const card=r=>`<div class="card"><h3>${E(r[0])}</h3>${samp(r[0])}<span class="tag s">${r[1]?'Class '+r[1]:'All classes'}</span><span class="tag s">${E(r[2])}</span><span class="tag">${E(r[3])}</span><p>${file(r[4])}</p></div>`;
- $('#'+key+'-list').innerHTML=D[key].filter(r=>(c=='0'||r[1]==c||r[1]==0)&&(s==''||r[2]==s)).map(card).join('')||'<p class="note">Nothing found. Try another class or subject.</p>'}
