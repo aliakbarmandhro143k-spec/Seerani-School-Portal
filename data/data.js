@@ -38,7 +38,9 @@ gallery:[
 ["download (9).jpeg","Our school team in front of the school"],
 ["download (10).jpeg","Students and a teacher at school"],
 ["download (11).jpeg","At school"],
-["download (12).jpeg","At school"]],
+["download (12).jpeg","At school"],
+["../../lv_0_20261113204029.jpg","Prize presentation at school"],
+["../../lv_0_20261113204525.jpg","Prize presentation at school"]],
 steam:[
 ["Sample: Working model","Student names (sample)","Materials list (sample)","Describe what the project does and how it works.",""]],
 careers:[
