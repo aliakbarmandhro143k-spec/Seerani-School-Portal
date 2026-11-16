@@ -129,3 +129,7 @@ footer a{color:#fff}
 .hero .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 .hero .acts a{padding:10px 18px;border-radius:24px;font-weight:700;text-decoration:none;background:var(--gold);color:var(--green-d)}
 .hero .acts a.o{background:transparent;color:#fff;border:2px solid #fff}
+
+.brand .logo{width:42px;height:42px;border-radius:50%;background:#fff;object-fit:cover;padding:2px}
+.partners{display:flex;gap:14px;justify-content:center;align-items:center;margin:20px 0 4px;flex-wrap:wrap}
+.partners img{height:84px;width:84px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:16px;padding:8px}

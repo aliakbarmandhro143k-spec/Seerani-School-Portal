@@ -144,9 +144,8 @@ window.PORTAL_DATA = {
      Photos ko images/gallery/ folder mein upload karein.
      category: "Events" | "Sports" | "Science" | "Classroom"       */
   gallery: [
-    { src: "download.jpeg",        caption: "School Photo 1", category: "Events" },
-    { src: "download%20(1).jpeg",  caption: "School Photo 2", category: "Events" },
-    { src: "download%20(2).jpeg",  caption: "School Photo 3", category: "Events" }
+    /* Photos yahan add karein, jaise:
+    { src: "science-lab.jpg", caption: "Science Lab", category: "Science" }, */
   ],
 
   /* ---------- 11. ENGLISH LEARNING ---------- */

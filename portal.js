@@ -243,7 +243,7 @@
       $("#out").innerHTML = items.length ? items.map(function (g, i) {
         return '<figure data-i="' + D.gallery.indexOf(g) + '"><div class="ph"><img loading="lazy" src="' + esc(g.src) + '" alt="' + esc(g.caption) +
           '" onerror="this.remove()">🖼️</div><figcaption>' + esc(g.caption) + "</figcaption></figure>";
-      }).join("") : empty();
+      }).join("") : empty("Photos jald upload ki jayengi. 📷");
     }
     $("#out").addEventListener("click", function (e) {
       var f = e.target.closest("figure"); if (!f) return;
