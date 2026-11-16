@@ -1,1 +1,0 @@
-# Seerani-School-Portal
