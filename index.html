@@ -1,77 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Seerani Digital School Portal</title>
-<meta name="description" content="Digital portal of Government Boys Higher Secondary School Seerani, District Badin, Sindh">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&family=Nunito:wght@400;700;800&display=swap">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header>
- <div class="top">
-    <a class="brand" href="#home"><img src="images/gallery/download.jpeg" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'🎓',className:'ico'}))"><b>Seerani Digital Portal</b></a>
-  <input id="q" type="search" placeholder="Search papers, books, news…" aria-label="Search">
-  <div class="lang"><button data-l="en" class="on">EN</button><button data-l="sd">سنڌي</button><button data-l="ur">اردو</button></div>
- </div>
- <nav id="nav"></nav>
-</header>
-<main>
-<section id="home">
- <div class="hero">
-    <img src="download.jpeg" alt="GBHSS Seerani school logo" style="height:84px;width:84px;object-fit:contain;background:#fff;border-radius:50%;padding:4px">
-  <p><span style="background:#e5a50a;color:#111;padding:.15rem .7rem;border-radius:99px;font-size:.8rem;font-weight:800">Track 2: AI &amp; Digital Solutions</span></p>
-  <p class="sm">Government of Sindh · District Badin</p>
-  <h1>Government Boys Higher Secondary School Seerani</h1>
-  <p data-i="welcome" class="lead">Smart ideas for a digital Sindh. Learn, report, and stay safe online.</p>
-  <div class="welcome">
-   <p><b>Welcome</b> to the digital portal of Government Boys Higher Secondary School Seerani, District Badin.</p>
-   <p lang="sd" dir="rtl"><b>ڀليڪار</b> گورنمينٽ بوائز هاءِ سيڪنڊري اسڪول سيراڻي، ضلعو بدين جي ڊجيٽل پورٽل ۾ ڀليڪار.</p>
-   <p lang="ur" dir="rtl"><b>خوش آمدید</b> گورنمنٹ بوائز ہائر سیکنڈری اسکول سیرانی، ضلع بدین کے ڈیجیٹل پورٹل میں خوش آمدید۔</p>
-  </div>
-  <a class="btn gold" href="#quiz">Play a quiz</a> <a class="btn ghost" href="#papers">Find past papers</a>
- </div>
-   <div class="logos" style="background:#fff;border-radius:14px;padding:.8rem;border:1px solid #d9dfec"><img src="download%20(1).jpeg" alt="Government of Sindh emblem"><img src="download%20(2).jpeg" alt="Sindh STREAM Journey logo"><img src="download%20(3).jpeg" alt="ILM Studio logo"></div>
- <p style="text-align:center;font-weight:700">We learn, celebrate, and now we build technology for our own community.</p>
- <h2>Explore the portal</h2><div id="tiles" class="grid"></div>
- <h2>Latest news</h2><div id="homenews" class="grid"></div>
-</section>
-<section id="papers" hidden><h2>Past Papers &amp; Exam Preparation</h2><p class="note">Classes 6–10. Entries marked Sample are examples: add your real PDFs (see README).</p><div class="filters" data-box="papers"></div><div class="grid" id="papers-list"></div></section>
-<section id="achievements" hidden><h2>Student Achievements</h2><p class="note">Sample cards only. Replace them with real, teacher-approved achievements.</p><div class="grid" id="ach-list"></div></section>
-<section id="library" hidden><h2>Digital Library</h2><div class="filters" data-box="library"></div><div class="grid" id="library-list"></div></section>
-<section id="quiz" hidden><h2>Quizzes &amp; MCQs</h2>
- <div class="panel"><label>Topic <select id="qt"></select></label> <label>Class <select id="qc"><option value="0">All (6–10)</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></label> <button class="btn" id="qs">Start (10 questions)</button></div>
- <div id="qbox"></div></section>
-<section id="teachers" hidden><h2>Teachers Directory</h2><p class="note">Sample cards. Add real names, photos and qualifications with the teachers’ permission.</p><div class="grid" id="teachers-list"></div></section>
-<section id="news" hidden><h2>News &amp; Announcements</h2><div class="grid" id="news-list"></div></section>
-<section id="gallery" hidden><h2>School Gallery &amp; Events</h2><div class="grid g" id="gallery-list"></div></section>
-<section id="steam" hidden><h2>STEAM / STREAM Projects</h2><p class="note">Sample project cards. Add real models, photos and video links.</p><div class="grid" id="steam-list"></div></section>
-<section id="careers" hidden><h2>Scholarships &amp; Career Guidance</h2><p class="note">Always check each official website for current dates and conditions.</p><div class="grid" id="careers-list"></div></section>
-<section id="calendar" hidden><h2>Academic Calendar</h2><p class="note">Sample rows. Dates must come from the school office.</p><div id="cal-list" class="tw"></div></section>
-<section id="english" hidden><h2>English Learning Corner</h2><div class="panel"><b>Word of the day</b><div id="wod"></div></div><h3>Vocabulary</h3><div class="grid" id="vocab"></div><h3>Tenses</h3><div class="tw" id="tenses"></div><h3>Daily-use sentences</h3><div class="grid" id="sent"></div><h3>Speaking practice</h3><ol id="speak"></ol></section>
-<section id="safe" hidden><h2>Stay safe online</h2><p>Five rules every student can follow today.</p><div class="grid" id="rules"></div>
- <h2>Safety for elders</h2><p>Please share these rules with your grandparents and parents.</p><div class="grid" id="elders"></div>
- <h2>Is this news fake?</h2><p>Tick every answer that is true for the message you received.</p>
- <div class="panel" id="fake"></div>
- <div class="warn"><b>Do not believe news from local viral Facebook pages. Believe only original news media channels.</b><p lang="sd" dir="rtl">مقامي وائرل فيس بڪ پيجز جي خبرن تي يقين نه ڪريو. رڳو اصل نيوز ميڊيا چينلز تي يقين ڪريو.</p><p lang="ur" dir="rtl">مقامی وائرل فیس بک پیجز کی خبروں پر یقین نہ کریں۔ صرف اصل نیوز میڈیا چینلز پر یقین کریں۔</p></div></section>
-<section id="report" hidden><h2>Report a school problem</h2><p>Tell us what needs fixing. Do not write phone numbers or passwords.</p>
- <form class="panel" id="rf"><label>Problem type <select name="t"><option>Broken desk or chair</option><option>Water or toilets</option><option>Cleanliness</option><option>Harassment or bullying</option><option>Electricity or fans</option><option>Other</option></select></label>
- <label>Class <select name="c"><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></label>
- <label>What is wrong? <textarea name="d" rows="4" required></textarea></label>
- <button class="btn" data-a="wa">Send on WhatsApp</button> <button class="btn alt" data-a="cp">Copy report</button> <p class="note" id="rm"></p></form></section>
-<section id="contact" hidden><h2>Contact &amp; Feedback</h2>
- <div class="panel"><b>Head Master</b><br>GBHSS Seerani, District Badin, Sindh<br><a href="https://wa.me/923332597174">WhatsApp: +92 333 2597174</a></div>
- <iframe title="School map" loading="lazy" src="https://www.google.com/maps?q=Government+Boys+Higher+Secondary+School+Seerani+Badin&output=embed"></iframe>
- <form class="panel" id="ff"><label>Message type <select name="t"><option>Feedback</option><option>Suggestion</option><option>Website issue</option></select></label>
- <label>Your message <textarea name="d" rows="4" required></textarea></label><button class="btn">Send on WhatsApp</button>
- <p class="note">This form opens WhatsApp; nothing is stored on this website.</p></form></section>
-<section id="search" hidden><h2>Search results</h2><div id="sr" class="grid"></div></section>
-</main>
-<footer><p><b>Government Boys Higher Secondary School Seerani</b>, District Badin, Sindh · <a href="https://wa.me/923332597174">+92 333 2597174</a></p>
-<p>Made by students of Government Boys Higher Secondary School Seerani<br>Built with free tools. No personal data is stored on this page.</p></footer>
-<script src="data/data.js"></script>
-<script src="app.js"></script>
- <script src="extra.js"></script>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>More Features — Seerani Digital Portal</title>
+<link rel="stylesheet" href="style.css"></head>
+<body data-page="hub">
+<header class="top"><div class="in"><a class="back" href="../index.html" aria-label="Back">←</a><h1>🏫 More Features<small>GBHSS Seerani, District Badin</small></h1></div></header>
+<main><p style="color:var(--mut);margin-top:0">Choose a section · سیکشن منتخب کریں</p><div class="grid wide">
+<a class="tile" href="papers.html"><div class="ic">📚</div><b>Past Papers</b><span>Class 6–10, subject-wise PDF papers</span></a>
+<a class="tile" href="student-achievements.html"><div class="ic">🏆</div><b>Student Achievements</b><span>Position holders, certificates, competitions</span></a>
+<a class="tile" href="school-achievements.html"><div class="ic">🥇</div><b>School Achievements</b><span>Awards, sports, science exhibitions</span></a>
+<a class="tile" href="teachers.html"><div class="ic">👨‍🏫</div><b>Our Teachers</b><span>Teachers' names, subjects and profiles</span></a>
+<a class="tile" href="notices.html"><div class="ic">📢</div><b>Notice Board</b><span>School announcements and notifications</span></a>
+<a class="tile" href="library.html"><div class="ic">📖</div><b>Digital Library</b><span>Books, notes and educational PDFs</span></a>
+<a class="tile" href="tests.html"><div class="ic">📝</div><b>Online Tests</b><span>MCQs, quizzes and chapter tests</span></a>
+<a class="tile" href="steam.html"><div class="ic">🔬</div><b>STEAM Projects</b><span>Students' science models and projects</span></a>
+<a class="tile" href="calendar.html"><div class="ic">📅</div><b>School Calendar</b><span>Exams, holidays and school events</span></a>
+<a class="tile" href="gallery.html"><div class="ic">🖼️</div><b>Photo Gallery</b><span>School activities and memorable events</span></a>
+<a class="tile" href="english.html"><div class="ic">🇬🇧</div><b>English Learning</b><span>Vocabulary, grammar and speaking practice</span></a>
+</div></main>
+<footer>Made by students of GBHSS Seerani · No personal data is stored</footer>
 </body></html>
