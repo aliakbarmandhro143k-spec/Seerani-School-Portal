@@ -11,7 +11,7 @@
   }
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
-  function empty(msg) { return '<div class="empty">' + esc(msg || "Koi record nahi mila.") + "</div>"; }
+  function empty(msg) { return '<div class="empty">' + esc(msg || "Abhi koi record nahi hai - jald yahan maloomat add ki jayegi.") + "</div>"; }
   function uniq(arr) { return arr.filter(function (v, i) { return arr.indexOf(v) === i; }); }
   function fmtDate(d) {
     var dt = new Date(d + "T00:00:00");
@@ -36,11 +36,16 @@
     var latest = D.notices.slice().sort(function (a, b) { return b.date.localeCompare(a.date); }).slice(0, 5);
     var t = $("#ticker");
     if (t && latest.length) t.innerHTML = latest.map(function (n) { return esc(n.title); }).join("   •   ");
+    var s = $("#strip");
+    if (s && D.gallery.length) s.innerHTML = D.gallery.slice(0, 6).map(function (g) {
+      return '<a href="gallery.html"><figure><div class="ph"><img loading="lazy" src="' + esc(g.src) + '" alt="' + esc(g.caption) + '"></div><figcaption>' + esc(g.caption) + "</figcaption></figure></a>";
+    }).join("");
   };
 
   /* ---------- PAST PAPERS ---------- */
   R.papers = function () {
     main.innerHTML =
+      '<div class="note">Class 9–10: Sindh Board (BISE Hyderabad) ke papers neeche diye gaye links par milte hain. Class 6–8 ke papers school ke annual exams ke hote hain, jo jald yahan upload kiye jayenge.</div>' +
       '<div class="bar"><select id="c"><option value="">Sab classes</option>' +
       [6, 7, 8, 9, 10].map(function (c) { return '<option value="' + c + '">Class ' + c + "</option>"; }).join("") +
       '</select><select id="s"><option value="">Sab subjects</option>' +
@@ -50,12 +55,12 @@
       var c = $("#c").value, s = $("#s").value, q = $("#q").value.toLowerCase();
       var items = D.papers.filter(function (p) {
         return (!c || String(p.cls) === c) && (!s || p.subject === s) &&
-          (p.subject + " " + p.title + " " + p.year).toLowerCase().indexOf(q) > -1;
-      }).sort(function (a, b) { return a.cls - b.cls || b.year - a.year; });
+          (p.subject + " " + p.title + " " + (p.years || p.year)).toLowerCase().indexOf(q) > -1;
+      }).sort(function (a, b) { return b.cls - a.cls || a.subject.localeCompare(b.subject); });
       $("#out").innerHTML = items.length ? items.map(function (p) {
         return '<div class="card row"><div><h3>' + esc(p.subject) + " — " + esc(p.title) + "</h3>" +
-          '<div class="meta"><span class="tag">Class ' + p.cls + '</span><span class="tag gold">' + p.year + "</span></div></div>" +
-          '<a class="btn sm" href="' + esc(p.file) + '" target="_blank" rel="noopener">⬇ PDF</a></div>';
+          '<div class="meta"><span class="tag">Class ' + p.cls + '</span><span class="tag gold">' + esc(p.years || p.year) + "</span></div></div>" +
+          '<a class="btn sm" href="' + esc(p.file) + '" target="_blank" rel="noopener">' + (/^https?:/.test(p.file) ? "Open ↗" : "⬇ PDF") + "</a></div>";
       }).join("") : empty();
     }
     $$("#c,#s,#q").forEach(function (e) { e.addEventListener("input", draw); }); draw();
@@ -80,18 +85,21 @@
     main.innerHTML = '<div class="chips" id="ch"></div><div class="list" id="out"></div>';
     function draw(cat) {
       var items = D.schoolAchievements.filter(function (a) { return cat === "All" || a.category === cat; })
-        .sort(function (a, b) { return b.year - a.year; });
+        .sort(function (a, b) { return (b.year || 0) - (a.year || 0); });
       $("#out").innerHTML = items.length ? items.map(function (a) {
-        return '<div class="card"><div class="row"><h3>🏅 ' + esc(a.title) + '</h3><span class="tag gold">' + a.year +
-          '</span></div><span class="tag">' + esc(a.category) + '</span><p class="meta" style="margin:8px 0 0">' + esc(a.text) + "</p></div>";
+        return '<div class="card">' + (a.image ? '<img src="' + esc(a.image) + '" alt="' + esc(a.title) + '" style="border-radius:10px;margin-bottom:10px;width:100%;max-height:340px;object-fit:cover">' : "") +
+          '<div class="row"><h3>🏅 ' + esc(a.title) + '</h3>' + (a.year ? '<span class="tag gold">' + a.year + "</span>" : "") +
+          '</div><span class="tag">' + esc(a.category) + '</span><p class="meta" style="margin:8px 0 0">' + esc(a.text) + "</p></div>";
       }).join("") : empty();
     }
-    chips($("#ch"), ["All", "Award", "Sports", "Science Exhibition"], draw); draw("All");
+    chips($("#ch"), ["All", "Events", "Award", "Sports", "Science Exhibition"], draw); draw("All");
   };
 
   /* ---------- TEACHERS ---------- */
   R.teachers = function () {
-    main.innerHTML = '<div class="bar"><input id="q" placeholder="Teacher ya subject search karein…"></div><div class="grid" id="out"></div>';
+    main.innerHTML = (D.staffPhotos && D.staffPhotos.length ? '<div class="gal" style="margin-bottom:18px">' + D.staffPhotos.map(function (p) {
+      return '<figure><div class="ph"><img src="' + esc(p.src) + '" alt="' + esc(p.caption) + '" loading="lazy"></div><figcaption>' + esc(p.caption) + "</figcaption></figure>";
+    }).join("") + "</div>" : "") + '<div class="bar"><input id="q" placeholder="Teacher ya subject search karein…"></div><div class="grid" id="out"></div>';
     function draw() {
       var q = $("#q").value.toLowerCase();
       var items = D.teachers.filter(function (t) { return (t.name + " " + t.subject + " " + t.role).toLowerCase().indexOf(q) > -1; });
@@ -121,7 +129,7 @@
 
   /* ---------- LIBRARY ---------- */
   R.library = function () {
-    main.innerHTML = '<div class="chips" id="ch"></div><div class="bar"><select id="c"><option value="">Sab classes</option>' +
+    main.innerHTML = (D.libraryNote ? '<div class="note">ℹ️ ' + esc(D.libraryNote) + "</div>" : "") + '<div class="chips" id="ch"></div><div class="bar"><select id="c"><option value="">Sab classes</option>' +
       ["6", "7", "8", "9", "10"].map(function (c) { return '<option value="' + c + '">Class ' + c + "</option>"; }).join("") +
       '</select><input id="q" placeholder="Search…"></div><div class="list" id="out"></div>';
     var type = "All";
@@ -132,13 +140,13 @@
           (b.title + " " + b.subject).toLowerCase().indexOf(q) > -1;
       });
       $("#out").innerHTML = items.length ? items.map(function (b) {
-        var ic = b.type === "Book" ? "📘" : b.type === "Notes" ? "📝" : "📄";
+        var ic = b.type === "Book" ? "📘" : b.type === "Notes" ? "📝" : b.type === "Shah Jo Risalo" ? "📜" : "📄";
         return '<div class="card row"><div><h3>' + ic + " " + esc(b.title) + '</h3><div class="meta"><span class="tag">' + esc(b.type) +
           '</span><span class="tag gold">Class ' + esc(b.cls) + '</span><span class="tag blue">' + esc(b.subject) + "</span></div></div>" +
-          '<a class="btn sm" href="' + esc(b.file) + '" target="_blank" rel="noopener">Open / Download</a></div>';
+          '<a class="btn sm" href="' + esc(b.file) + '" target="_blank" rel="noopener">' + (/^https?:/.test(b.file) ? "Open ↗" : "Open / Download") + "</a></div>";
       }).join("") : empty();
     }
-    chips($("#ch"), ["All", "Book", "Notes", "Educational PDF"], function (v) { type = v; draw(); });
+    chips($("#ch"), ["All", "Book", "Shah Jo Risalo", "Notes", "Educational PDF"], function (v) { type = v; draw(); });
     $$("#c,#q").forEach(function (e) { e.addEventListener("input", draw); }); draw();
   };
 
@@ -242,7 +250,7 @@
       var items = D.gallery.filter(function (g) { return cat === "All" || g.category === cat; });
       $("#out").innerHTML = items.length ? items.map(function (g, i) {
         return '<figure data-i="' + D.gallery.indexOf(g) + '"><div class="ph"><img loading="lazy" src="' + esc(g.src) + '" alt="' + esc(g.caption) +
-          '" onerror="this.remove()">🖼️</div><figcaption>' + esc(g.caption) + "</figcaption></figure>";
+          '" onerror="this.parentNode.textContent=\'🖼️\'"></div><figcaption>' + esc(g.caption) + "</figcaption></figure>";
       }).join("") : empty("Photos jald upload ki jayengi. 📷");
     }
     $("#out").addEventListener("click", function (e) {

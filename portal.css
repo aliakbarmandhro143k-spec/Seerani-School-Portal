@@ -133,3 +133,9 @@ footer a{color:#fff}
 .brand .logo{width:42px;height:42px;border-radius:50%;background:#fff;object-fit:cover;padding:2px}
 .partners{display:flex;gap:14px;justify-content:center;align-items:center;margin:20px 0 4px;flex-wrap:wrap}
 .partners img{height:84px;width:84px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:16px;padding:8px}
+
+.gal img{object-position:center 30%}
+.gal a{text-decoration:none;color:inherit;display:block}
+
+.brand .logo{flex:none;object-fit:contain;background:#fff}
+.gal .ph{min-height:120px}
