@@ -36,6 +36,13 @@
     var latest = D.notices.slice().sort(function (a, b) { return b.date.localeCompare(a.date); }).slice(0, 5);
     var t = $("#ticker");
     if (t && latest.length) t.innerHTML = latest.map(function (n) { return esc(n.title); }).join("   •   ");
+    var st = $("#stats");
+    if (st) {
+      var mcq = D.tests.reduce(function (a, t) { return a + t.questions.length; }, 0);
+      st.innerHTML = [[D.tests.length, "Quizzes"], [mcq, "MCQs"], [D.library.length, "Books & Links"], [D.vocab.length + D.synonyms.length + D.antonyms.length, "English Words"]].map(function (x) {
+        return "<div><b>" + x[0] + "</b><span>" + x[1] + "</span></div>";
+      }).join("");
+    }
     var s = $("#strip");
     if (s && D.gallery.length) s.innerHTML = D.gallery.slice(0, 6).map(function (g) {
       return '<a href="gallery.html"><figure><div class="ph"><img loading="lazy" src="' + esc(g.src) + '" alt="' + esc(g.caption) + '"></div><figcaption>' + esc(g.caption) + "</figcaption></figure></a>";
@@ -152,44 +159,71 @@
 
   /* ---------- ONLINE TESTS ---------- */
   R.tests = function () {
+    var gcol = { Maths: "#e0a82e", Science: "#0b8a5f", English: "#a3162f", GK: "#1f6fb2", Computer: "#6b3fa0" };
+    var cur = "All";
+    function shuffle(a) {
+      a = a.slice();
+      for (var i = a.length - 1; i > 0; i--) { var k = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[k]; a[k] = t; }
+      return a;
+    }
     function menu() {
-      main.innerHTML = '<div class="grid">' + D.tests.map(function (t) {
-        return '<div class="card"><h3>' + esc(t.title) + '</h3><div class="meta"><span class="tag">' + esc(t.subject) + '</span><span class="tag gold">Class ' +
-          esc(t.cls) + "</span></div><p class=\"meta\">" + t.questions.length + ' MCQs</p><button class="btn" data-id="' + t.id + '">Start Test</button></div>';
-      }).join("") + "</div>";
+      var groups = ["All"].concat(uniq(D.tests.map(function (t) { return t.group; })));
+      main.innerHTML = '<div class="chips" id="ch"></div><div class="grid" id="out"></div>';
+      var ch = $("#ch");
+      ch.innerHTML = groups.map(function (g) { return '<button class="chip' + (g === cur ? " on" : "") + '" data-v="' + esc(g) + '">' + esc(g) + "</button>"; }).join("");
+      ch.addEventListener("click", function (e) {
+        var b = e.target.closest(".chip"); if (!b) return;
+        cur = b.getAttribute("data-v");
+        $$(".chip", ch).forEach(function (x) { x.classList.toggle("on", x === b); });
+        list();
+      });
+      list();
+    }
+    function list() {
+      var items = D.tests.filter(function (t) { return cur === "All" || t.group === cur; });
+      $("#out").innerHTML = items.map(function (t) {
+        return '<div class="card tcard" style="--g:' + (gcol[t.group] || "#1b2a6b") + '"><h3>' + esc(t.title) + '</h3><div class="meta"><span class="tag">' + esc(t.subject) +
+          '</span><span class="tag gold">Class ' + esc(t.cls) + '</span></div><p class="meta" style="margin:8px 0 12px">' + t.questions.length +
+          ' MCQs · har baar naye order mein</p><button class="btn" data-id="' + t.id + '">▶ Start Test</button></div>';
+      }).join("");
       $$("button[data-id]").forEach(function (b) { b.addEventListener("click", function () { start(b.getAttribute("data-id")); }); });
     }
     function start(id) {
       var t = D.tests.filter(function (x) { return x.id === id; })[0], i = 0, score = 0, log = [];
+      var qs = shuffle(t.questions).map(function (q) {
+        return { q: q.q, opts: shuffle(q.options.map(function (o, k) { return { o: o, ok: k === q.answer }; })) };
+      });
       function q() {
-        var cur = t.questions[i];
-        main.innerHTML = '<div class="card"><div class="meta">' + esc(t.title) + " · Question " + (i + 1) + " / " + t.questions.length +
-          '</div><div class="prog"><div style="width:' + (i / t.questions.length * 100) + '%"></div></div><h3 style="font-size:1.2rem">' + esc(cur.q) + "</h3>" +
-          cur.options.map(function (o, k) { return '<button class="opt" data-k="' + k + '">' + esc(o) + "</button>"; }).join("") +
+        var cur = qs[i], L = ["A", "B", "C", "D"];
+        main.innerHTML = '<div class="card"><div class="meta">' + esc(t.title) + " · Question " + (i + 1) + " / " + qs.length +
+          '</div><div class="prog"><div style="width:' + (i / qs.length * 100) + '%"></div></div><h3 style="font-size:1.2rem;margin-bottom:10px">' + esc(cur.q) + "</h3>" +
+          cur.opts.map(function (o, k) { return '<button class="opt" data-k="' + k + '"><b>' + L[k] + "</b>" + esc(o.o) + "</button>"; }).join("") +
           '<div id="nx"></div></div>';
         $$(".opt").forEach(function (b) {
           b.addEventListener("click", function () {
-            var k = +b.getAttribute("data-k");
-            $$(".opt").forEach(function (x, n) { x.disabled = true; if (n === cur.answer) x.classList.add("ok"); });
-            if (k !== cur.answer) b.classList.add("bad"); else score++;
-            log.push({ q: cur.q, picked: cur.options[k], right: cur.options[cur.answer], ok: k === cur.answer });
-            $("#nx").innerHTML = '<button class="btn" id="go">' + (i + 1 < t.questions.length ? "Next →" : "Result dekhein") + "</button>";
-            $("#go").addEventListener("click", function () { i++; i < t.questions.length ? q() : done(); });
+            var k = +b.getAttribute("data-k"), right = "";
+            $$(".opt").forEach(function (x, n) { x.disabled = true; if (cur.opts[n].ok) { x.classList.add("ok"); right = cur.opts[n].o; } });
+            if (!cur.opts[k].ok) b.classList.add("bad"); else score++;
+            log.push({ q: cur.q, picked: cur.opts[k].o, right: right, ok: cur.opts[k].ok });
+            $("#nx").innerHTML = '<button class="btn" id="go">' + (i + 1 < qs.length ? "Next →" : "Result dekhein") + "</button>";
+            $("#go").addEventListener("click", function () { i++; i < qs.length ? q() : done(); });
           });
         });
       }
       function done() {
-        var pct = Math.round(score / t.questions.length * 100);
+        var pct = Math.round(score / qs.length * 100);
         var msg = pct >= 80 ? "Shandar! 🌟" : pct >= 50 ? "Achha, mazeed mehnat karein 👍" : "Dobara koshish karein 💪";
-        main.innerHTML = '<div class="card"><div class="score">' + score + " / " + t.questions.length + '</div><p style="text-align:center">' + pct + "% — " + msg + "</p>" +
-          '<h3>Review</h3>' + log.map(function (l) {
+        main.innerHTML = '<div class="card"><div class="score">' + score + " / " + qs.length + '</div><p style="text-align:center;font-size:1.1rem">' + pct + "% — " + msg + "</p>" +
+          "<h3>Review</h3>" + log.map(function (l) {
             return '<div class="note" style="background:' + (l.ok ? "#e6f4ec" : "#fde8e5") + '">' + (l.ok ? "✅ " : "❌ ") + esc(l.q) +
               (l.ok ? "" : "<br><small>Aapka jawab: " + esc(l.picked) + " · Sahi jawab: <b>" + esc(l.right) + "</b></small>") + "</div>";
           }).join("") + '<button class="btn" id="re">Dobara</button> <button class="btn alt" id="mn">Tests ki list</button></div>';
         $("#re").addEventListener("click", function () { start(id); });
         $("#mn").addEventListener("click", menu);
+        window.scrollTo(0, 0);
       }
       q();
+      window.scrollTo(0, 0);
     }
     menu();
   };
@@ -270,6 +304,15 @@
       window.speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(t); u.lang = "en-US"; u.rate = 0.9; window.speechSynthesis.speak(u);
     }
+    function searchList(items, render, ph) {
+      $("#out").innerHTML = '<div class="bar"><input id="sq" placeholder="' + ph + '"></div><div class="wl" id="wl"></div>';
+      function draw() {
+        var q = $("#sq").value.toLowerCase();
+        var f = items.filter(function (x) { return JSON.stringify(x).toLowerCase().indexOf(q) > -1; });
+        $("#wl").innerHTML = f.length ? f.map(render).join("") : empty("Koi lafz nahi mila.");
+      }
+      $("#sq").addEventListener("input", draw); draw();
+    }
     var tabs = {
       "Vocabulary": function () {
         var i = 0;
@@ -286,9 +329,25 @@
         card();
       },
       "Grammar": function () {
-        $("#out").innerHTML = '<div class="list">' + D.grammar.map(function (g) {
-          return '<div class="card"><h3>' + esc(g.title) + ' <span class="urdu" style="color:var(--muted);font-size:1rem">— ' + esc(g.ur) + "</span></h3><p>" + esc(g.text) +
-            '</p><ul style="margin:0;padding-left:20px">' + g.examples.map(function (e) { return "<li>" + esc(e) + "</li>"; }).join("") + "</ul></div>";
+        $("#out").innerHTML = '<div class="list">' + D.grammar.map(function (g, n) {
+          return '<details class="card"' + (n === 0 ? " open" : "") + "><summary>" + esc(g.title) + ' <span class="urdu" style="color:var(--muted);font-size:1rem">— ' + esc(g.ur) + "</span></summary><p>" + esc(g.text) +
+            '</p><ul style="margin:0;padding-left:20px">' + g.examples.map(function (e) { return "<li>" + esc(e) + "</li>"; }).join("") + "</ul></details>";
+        }).join("") + "</div>";
+      },
+      "Synonyms": function () {
+        searchList(D.synonyms, function (s) {
+          return '<div class="r"><div><b>' + esc(s.w) + '</b> <span class="urdu meta">' + esc(s.ur) + '</span></div><div>' +
+            s.s.map(function (x) { return '<span class="pill">' + esc(x) + "</span>"; }).join("") + "</div></div>";
+        }, "Synonym search karein… (jaise happy)");
+      },
+      "Antonyms": function () {
+        searchList(D.antonyms, function (s) {
+          return '<div class="r"><div><b>' + esc(s.w) + '</b> <span class="meta">↔</span> <b style="color:var(--red)">' + esc(s.a) + '</b></div><div class="urdu meta">' + esc(s.ur) + "</div></div>";
+        }, "Antonym search karein… (jaise hot)");
+      },
+      "Idioms": function () {
+        $("#out").innerHTML = '<div class="list">' + D.idioms.map(function (x) {
+          return '<div class="card"><h3>💬 ' + esc(x.i) + "</h3><div>" + esc(x.m) + '</div><div class="urdu meta">' + esc(x.ur) + '</div><div class="meta" style="margin-top:6px">Example: ' + esc(x.ex) + "</div></div>";
         }).join("") + "</div>";
       },
       "Speaking": function () {
@@ -298,6 +357,17 @@
           }).join("") + "</div>";
         }).join("");
         $$("button[data-s]").forEach(function (b) { b.addEventListener("click", function () { speak(b.getAttribute("data-s")); }); });
+      },
+      "Writing": function () {
+        $("#out").innerHTML = '<div class="list">' + D.writing.map(function (w, n) {
+          return '<div class="card"><div class="row"><h3>✍️ ' + esc(w.title) + '</h3><button class="btn sm" data-c="' + n + '">Copy</button></div><pre class="letter">' + esc(w.text) + "</pre></div>";
+        }).join("") + "</div>";
+        $$("button[data-c]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            var t = D.writing[+b.getAttribute("data-c")].text;
+            if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { b.textContent = "Copied ✓"; }); else alert(t);
+          });
+        });
       }
     };
     chips($("#tabs"), Object.keys(tabs), function (k) { tabs[k](); });
