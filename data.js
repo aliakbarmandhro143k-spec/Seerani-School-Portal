@@ -15,8 +15,8 @@ window.PORTAL_DATA = {
   },
 
 
-  papersNote: "Class 9 aur 10 ke Sindh board (BISE Hyderabad) ke papers neeche links se khulte hain. Class 6-8 ke liye board paper nahi hote - ye school ke annual papers hote hain; apne school ke PDF papers GitHub par upload karke yahan add karein.",
-  libraryNote: "Ye links bahari websites (taleem360, Wikipedia, Dawn waghera) par khulte hain jahan STBB ki kitabein aur Shah Jo Risalo mojood hain. Apni PDF upload karni ho to GitHub par daal kar yahan 'file' mein naam likhein.",
+  papersNote: "Class 9–10: past papers of the Sindh Board (BISE Hyderabad) are available through the links below. Class 6–8 papers are the school's own annual exams and will be uploaded soon.",
+  libraryNote: "These links open outside websites (taleem360, Wikipedia, Dawn etc.) where STBB books and Shah Jo Risalo are available.",
   staffPhotos: [
     { src: "photo-09-teachers-group.jpg", caption: "Teachers in assembly" },
     { src: "photo-04-staff.jpg", caption: "School staff" }
