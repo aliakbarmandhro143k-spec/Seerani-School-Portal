@@ -229,6 +229,49 @@
     menu();
   };
 
+  /* ---------- CONTACT ---------- */
+  R.contact = function () {
+    var num = D.school.whatsapp, who = D.school.contactName || "School";
+    var pretty = "+" + num.slice(0, 2) + " " + num.slice(2, 5) + " " + num.slice(5);
+    var types = ["Report a problem", "Question", "Suggestion", "Admission inquiry"];
+    var probs = ["Broken furniture", "Water or toilets", "Cleanliness", "Harassment or bullying", "Electricity or fans", "Other"];
+    main.innerHTML =
+      '<div class="card" style="margin-bottom:16px"><div class="row"><div><h3>📱 ' + esc(who) + '</h3><div class="meta">WhatsApp: <b>' + esc(pretty) + '</b></div></div>' +
+      '<a class="btn" href="https://wa.me/' + esc(num) + '" target="_blank" rel="noopener">Seedha WhatsApp kholein</a></div></div>' +
+      '<div class="card"><h3>✉️ Message bhejein</h3><p class="meta">Form bharein, phir "WhatsApp par bhejein" dabayein. WhatsApp khulega aur message pehle se likha hoga; aap khud Send dabayenge. Is site par koi maloomat save nahi hoti.</p>' +
+      '<div class="form"><label>Kis cheez ke liye?<select id="ty">' + types.map(function (t) { return "<option>" + t + "</option>"; }).join("") + '</select></label>' +
+      '<label id="pl" style="display:block">Masle ki qism<select id="pr">' + probs.map(function (t) { return "<option>" + t + "</option>"; }).join("") + '</select></label>' +
+      '<label>Class<select id="cl"><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option><option>Parent / Other</option></select></label>' +
+      '<label>Naam (zaroori nahi)<input id="nm" placeholder="Apna naam"></label>' +
+      '<label>Message<textarea id="ms" rows="5" placeholder="Yahan apna message likhein…"></textarea></label>' +
+      '<div class="note" id="serious" style="display:none">⚠️ Harassment ya bullying jaise serious masle mein baat seedha Head Master se bhi karein.</div>' +
+      '<div class="row" style="justify-content:flex-start"><button class="btn" id="send">💬 WhatsApp par bhejein</button><button class="btn alt" id="cp">Copy message</button></div><p id="st" class="meta"></p></div></div>';
+    function build() {
+      var ty = $("#ty").value, lines = ["*Seerani Digital Portal*", "Type: " + ty];
+      if (ty === "Report a problem") lines.push("Problem: " + $("#pr").value);
+      lines.push("Class: " + $("#cl").value);
+      if ($("#nm").value.trim()) lines.push("Name: " + $("#nm").value.trim());
+      lines.push("", $("#ms").value.trim());
+      return lines.join("\n");
+    }
+    function sync() {
+      var rep = $("#ty").value === "Report a problem";
+      $("#pl").style.display = rep ? "block" : "none";
+      $("#serious").style.display = rep && $("#pr").value === "Harassment or bullying" ? "block" : "none";
+    }
+    $$("#ty,#pr").forEach(function (e) { e.addEventListener("change", sync); }); sync();
+    $("#send").addEventListener("click", function () {
+      if (!$("#ms").value.trim()) { $("#st").textContent = "Pehle message likhein."; return; }
+      window.open("https://wa.me/" + num + "?text=" + encodeURIComponent(build()), "_blank");
+      $("#st").textContent = "WhatsApp khul gaya - wahan Send dabayein.";
+    });
+    $("#cp").addEventListener("click", function () {
+      if (!$("#ms").value.trim()) { $("#st").textContent = "Pehle message likhein."; return; }
+      if (navigator.clipboard) navigator.clipboard.writeText(build()).then(function () { $("#st").textContent = "Message copy ho gaya."; });
+      else $("#st").textContent = build();
+    });
+  };
+
   /* ---------- STEAM ---------- */
   R.steam = function () {
     main.innerHTML = '<div class="chips" id="ch"></div><div class="grid" id="out"></div>';
@@ -375,6 +418,11 @@
     tabs.Vocabulary();
   };
 
+  if (page !== "contact" && D.school.whatsapp) {
+    var fab = document.createElement("a");
+    fab.className = "wafab"; fab.href = "contact.html"; fab.setAttribute("aria-label", "Contact the school"); fab.innerHTML = "💬<span>Contact</span>";
+    document.body.appendChild(fab);
+  }
   function boot() { if (R[page]) R[page](); }
   if (page === "gallery" || page === "teachers" || page === "hub") {
     var sc = document.createElement("script");

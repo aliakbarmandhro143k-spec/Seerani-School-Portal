@@ -9,7 +9,9 @@ window.PORTAL_DATA = {
 
   school: {
     name: "Government Boys Higher Secondary School Seerani",
-    place: "Seerani, District Badin, Sindh"
+    place: "Seerani, District Badin, Sindh",
+    whatsapp: "923332597174",          /* country code ke saath, bina + ya space ke */
+    contactName: "Head Master"
   },
 
 

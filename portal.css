@@ -194,3 +194,10 @@ main>*{animation:up .45s ease both}
 @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media(max-width:560px){.stats b{font-size:1.2rem}.hero .acts a{font-size:.98rem;padding:14px 6px}}
 body[data-page=tests] main>*,body[data-page=english] #out>*{animation:none}
+
+.form label{display:block;margin:12px 0 0;font-weight:600;font-size:.92rem;color:var(--navy)}
+.form select,.form input,.form textarea{display:block;width:100%;margin-top:5px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;font:inherit;background:#fff}
+.form .row{margin-top:16px}
+.wafab{position:fixed;right:14px;bottom:16px;z-index:30;background:#1faa59;color:#fff;text-decoration:none;border-radius:30px;padding:12px 16px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,.3);display:flex;gap:6px;align-items:center}
+.wafab span{font-size:.9rem}
+.wafab:hover{background:#178a47}
